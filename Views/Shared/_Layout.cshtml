@@ -1,0 +1,172 @@
+﻿@using AdBanner
+@using CampusR.Models
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="robots" content="index,follow" />
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+
+    <!--CSS區開始-->
+    <!--預加載區-->
+    <link rel="preload" as="style" href="~/Content/css/bootstrap.min.css" onload="this.rel='stylesheet'" />
+    <link rel="preload" as="style" href="~/Content/css/component.css" onload="this.rel='stylesheet'" />
+    <link rel="preload" as="style" href="~/Content/css/owl.carousel.css" onload="this.rel='stylesheet'" />
+    <link rel="preload" as="style" href="~/Content/css/sweetalert.css" onload="this.rel='stylesheet'" />
+    <link rel="preload" as="style" href="~/Content/css/hover.css" onload="this.rel='stylesheet'" />
+    <link rel="preload" as="style" href="~/Content/css/style.css" onload="this.rel='stylesheet'" />
+    <!--無JS情況下的加載-->
+    <noscript>
+        <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
+        <link href="~/Content/css/component.css" rel="stylesheet">
+        <link href="~/Content/css/owl.carousel.css" rel="stylesheet">
+        <link href="~/Content/css/sweetalert.css" rel="stylesheet">
+        <link href="~/Content/css/hover.css" rel="stylesheet">
+        <link href="~/Content/css/style.css" rel="stylesheet">
+    </noscript>
+    <!--CSS區結束-->
+
+    <style>
+        #loader {
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 9999;
+        }
+
+            #loader img {
+                filter: drop-shadow( 0 0 15px rgba(0,0,0,.1) );
+                position: relative;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                max-width: 350px;
+            }
+
+        #myDiv {
+            display: none;
+        }
+    </style>
+    @RenderSection("heads", false)
+</head>
+<body>
+    <div id="loader">
+        <img src="~/Content/images/loading.gif" alt="網頁讀取中請稍後">
+    </div>
+    <div style="display:none;" id="myDiv" class="animate-bottom">
+        @Html.Raw(BannerCookiesModule.getAnalysisScript(option: 0))
+        <!--表頭-->
+        <nav class="navbar navbar-expand-md p-sm-0">
+            <div class="container">
+                <a class="navbar-brand p-1 p-sm-0" href="@Url.Action("Index", "CampusR")">
+                    <img src="~/Content/images/logo.png" alt="@(GlobalVariables.currentYear)知名大學聯合校徵logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarCollapse" aria-controls="navbarCollapse"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    @RenderSection("MenuList", true)
+                </div>
+            </div>
+        </nav>
+        <!--表頭結束-->
+
+        @RenderBody()
+
+        <!--表尾-->
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 footer_link">
+                        @RenderSection("FooterList", true)
+                    </div>
+
+                    <div class="col-12 copyright">
+                        全球華人股份有限公司版權所有 © @(GlobalVariables.currentYear) 1111 Job Bank All Rights Reserved.
+                    </div>
+
+                </div>
+            </div>
+            <div class="share">
+                <div class="bottom_link">
+                    <a href="/campusr/freshmanwarmup"><div class="career_btn">新鮮人必看</div></a>
+                    <a href="/campusr/list"><div class="session_btn">線上場次</div></a>
+                    @* <a href="/campusr/newmemberevent"><div class="G2000_btn">抽G2000</div></a>*@
+                    <a href="https://event.1111.com.tw/event22/22campus/index.asp"><div class="G2000_btn">新鮮人就博會</div></a>
+                </div>
+
+            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.1111.com.tw%2Fcampusr%2F&amp;src=sdkpreparse"
+               class="fb-xfbml-parse-ignore" rel="noreferrer noopener">
+                <div class="share_fb">
+                    <img src="~/Content/images/facebook.png" alt="分享到Facebook給好友">
+                </div>
+            </a>
+            <div id="fb-root"></div>
+            <script async defer crossorigin="anonymous"
+                    src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v10.0"
+                    nonce="QlrU7AGN"></script>
+            <a href="https://social-plugins.line.me/lineit/share?url=https://www.1111.com.tw/campusr/" target="_blank" rel="noreferrer noopener">
+                <div class="share_line">
+                    <img src="~/Content/images/line.png" alt="分享到LINE給好友">
+                </div>
+            </a>
+
+        </div>
+        @*  <!--好康活動抽獎-->
+            <a href="/campusr/newmemberevent?agent=campusr_float" id="float_right">
+            <img src="~/Content/images/01.png" alt="參加好康活動"><br>
+            <img src="~/Content/images/gift.png" alt="參加好康活動">
+        </a>*@
+                    <a href="#" id="gotop">
+                        <img src="~/Content/images/gotop.png" alt="回到網頁最頂端">
+                    </a>
+
+</footer>
+    </div>
+    <!--表尾結束-->
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+
+    <!--正式加載-->
+    @*<script src="~/Content/js/jquery-slim.min.js" defer></script>*@
+    <script src="~/Content/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js" defer></script>
+    @*<script src="~/Content/js/bootstrap.js" defer></script>*@
+    <script src="~/Content/js/owl.carousel.min.js"></script>
+    <script src="~/Content/js/custom.js"></script>
+    <link rel="prefetch" href="~/Content/js/sweetalert.min.js" as="script">
+    <script src="~/Content/js/sweetalert.min.js" defer></script>
+    <script src="@Url.Content("https://www.1111.com.tw/includesU/toplink/topLink2018.asp")"></script>
+
+
+
+    <script>
+        (function () {
+            //思源黑體非同步載入
+            var cb = function () {
+                var a = document.createElement('link');
+                a.rel = 'stylesheet';
+                a.href = 'https://fonts.googleapis.com/css?family=Noto+Sans+TC:300,400,500,700&display=swap';;
+
+                var z = document.getElementsByTagName('head')[0];
+                z.parentNode.insertBefore(a, z);
+            };
+            var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+                webkitRequestAnimationFrame || msRequestAnimationFrame;
+            if (raf) raf(cb);
+            else window.addEventListener('load', cb);
+        })();
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
